@@ -256,16 +256,45 @@
 
         // AJAX post the data to the friends API.
         
-        $.post("/api/friends", userData, function(data) {
-
-          // Grab the result from the AJAX post so that the best match's name and photo are displayed.
+        $.ajax({
+          method: "POST",
+          url: "/api/friends",
+          data: userData,
+          contentType: "application/json"
+          // success: "success",
+          // dataType: dataType
+        }).then(function(data) {
+          console.log(data)
           $("#match-name").text(data.name);
           $("#match-img").attr("src", data.photo);
-
           // Show the modal with the best match
           $("#results-modal").modal("toggle");
+        })
 
-        });
+
+
+        // $.ajax("/api/friends", userData, function(data) {
+
+        //   contentType: "application/json";
+
+        //   // Grab the result from the AJAX post so that the best match's name and photo are displayed.
+        //   $("#match-name").text(data.name);
+        //   $("#match-img").attr("src", data.photo);
+
+        //   // Show the modal with the best match
+        //   $("#results-modal").modal("toggle");
+
+        // });
+
+        // $.post("/api/friends", userData, function(data) {
+        //   // Grab the result from the AJAX post so that the best match's name and photo are displayed.
+        //   console.log(data)
+        //   $("#match-name").text(data.name);
+        //   $("#match-img").attr("src", data.photo);
+        //   // Show the modal with the best match
+        //   $("#results-modal").modal("toggle");
+        // });
+
       } else {
         alert("Please fill out all fields before submitting!");
       }
