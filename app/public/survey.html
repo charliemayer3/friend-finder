@@ -178,7 +178,7 @@
         </div>
         <div class="modal-body">
           <h2 id="match-name"></h2>
-          <img id="match-img" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg" alt="">
+          <img id="match-img" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg" alt="" width="100%">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -259,41 +259,16 @@
         $.ajax({
           method: "POST",
           url: "/api/friends",
-          data: userData,
-          contentType: "application/json"
-          // success: "success",
-          // dataType: dataType
-        }).then(function(data) {
-          console.log(data)
-          $("#match-name").text(data.name);
-          $("#match-img").attr("src", data.photo);
-          // Show the modal with the best match
-          $("#results-modal").modal("toggle");
+          data: JSON.stringify(userData),
+          contentType: "application/json",
+          success: function(response) {
+            console.log(response)
+            $("#match-name").text(response.name);
+            $("#match-img").attr("src", response.photo);
+            // Show the modal with the best match
+            $("#results-modal").modal("toggle");
+          }
         })
-
-
-
-        // $.ajax("/api/friends", userData, function(data) {
-
-        //   contentType: "application/json";
-
-        //   // Grab the result from the AJAX post so that the best match's name and photo are displayed.
-        //   $("#match-name").text(data.name);
-        //   $("#match-img").attr("src", data.photo);
-
-        //   // Show the modal with the best match
-        //   $("#results-modal").modal("toggle");
-
-        // });
-
-        // $.post("/api/friends", userData, function(data) {
-        //   // Grab the result from the AJAX post so that the best match's name and photo are displayed.
-        //   console.log(data)
-        //   $("#match-name").text(data.name);
-        //   $("#match-img").attr("src", data.photo);
-        //   // Show the modal with the best match
-        //   $("#results-modal").modal("toggle");
-        // });
 
       } else {
         alert("Please fill out all fields before submitting!");
